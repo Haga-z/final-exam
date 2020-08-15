@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.security.Principal;
+import java.sql.Timestamp;
 
 
 @Service
@@ -32,6 +33,7 @@ public class PlaceService {
                     .description(description)
                     .main_photo(file.getBytes())
                     .title(title)
+                    .date(new Timestamp(System.currentTimeMillis()))
                     .user(userRepository.findByEmail(principal.getName()))
                     .build();
             placeRepository.save(place);

@@ -4,7 +4,7 @@
 
 
             <div class="row">
-    <#list places as place>
+    <#list items as place>
                 <div class="col-sm-12 col-md-6 col-lg-3">
                     <div class="card mt-4">
                         <div class="img-container">
@@ -23,10 +23,12 @@
     </#list>
             </div>
     <div>
-        <#if loadMore>
-            <a id="loadPrev" href="${loadMore!''}">Load More v</a>
+        <#if hasPrev>
+            <a id="loadPrev" class="text-danger" href="${prevPageLink!''}">&lt;&lt;&lt;Previous page</a>
         </#if>
-
+        <#if hasNext>
+            <a id="loadNext" class="text-danger" href="${nextPageLink!''}" data-default-page-size="${defaultPageSize!5}">Next page&gt;&gt;&gt;</a>
+        </#if>
     </div>
 
 

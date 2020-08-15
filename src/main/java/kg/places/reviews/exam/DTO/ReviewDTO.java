@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 public class ReviewDTO {
     private Integer id;
     private String text;
-    private int mark;
+    private double mark;
     private Timestamp date;
     private UserDTO user;
     private PlaceDTO place;

@@ -19,7 +19,7 @@ public class Review {
 
     private String text;
 
-    private int mark;
+    private double mark;
 
     private Timestamp date;
 

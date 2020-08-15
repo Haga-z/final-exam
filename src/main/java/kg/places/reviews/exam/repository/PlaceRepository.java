@@ -11,4 +11,7 @@ public interface PlaceRepository extends JpaRepository<Place,Integer> {
     @Query("SELECT p FROM Place p WHERE (p.title like concat(:name, '%')) or (p.title like concat('%',:name,'%')) or (p.title like concat('%', :name)) or " +
             "(p.description like concat(:name, '%')) or (p.description like concat('%',:name,'%')) or (p.description like concat('%', :name))")
     Page<Place> findPlaceByTitle(String name, Pageable pageable);
+
+    Page<Place> findAllByOrderByDateDesc(Pageable pageable);
+
 }

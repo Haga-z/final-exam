@@ -3,11 +3,13 @@ package kg.places.reviews.exam.controller;
 import kg.places.reviews.exam.DTO.PlaceDTO;
 import kg.places.reviews.exam.repository.PlaceRepository;
 import kg.places.reviews.exam.repository.UserRepository;
+import kg.places.reviews.exam.service.PropertiesService;
 import kg.places.reviews.exam.service.UserService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,13 +25,15 @@ import java.util.stream.Collectors;
 public class MainController {
     private final UserRepository userRepository;
     private final PlaceRepository placeRepository;
+    private final PropertiesService propertiesService;
 
     @GetMapping("/")
     public String getIndex(Authentication authentication, Model model, HttpServletRequest uriBuilder, Pageable pageable){
             var user = userRepository.findByEmail(authentication.getName());
-            List<PlaceDTO> places = placeRepository.findAll().stream().map(PlaceDTO::from).collect(Collectors.toList());
+            Page<PlaceDTO> places = placeRepository.findAllByOrderByDateDesc(pageable).map(PlaceDTO::from);
             model.addAttribute("user", user);
-            model.addAttribute("places",places);
+            var uri = uriBuilder.getRequestURI();
+        constructPageable(places,propertiesService.getDefaultPageSize(),model,uri);
         return "index";
     }
 

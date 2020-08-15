@@ -21,7 +21,7 @@ public class ReviewController {
     private final UserRepository userRepository;
     private final PlaceRepository placeRepository;
     @PostMapping("/add_review")
-    public String addReview(@RequestParam("mark")int mark,
+    public String addReview(@RequestParam("rating")double rating,
                             @RequestParam("text")String text,
                             @RequestParam("place_id")Integer place_id,
                             Principal principal){
@@ -29,7 +29,7 @@ public class ReviewController {
         var user = userRepository.findByEmail(principal.getName());
         var review = Review.builder()
                 .date(new Timestamp(System.currentTimeMillis()))
-                .mark(mark)
+                .mark(rating)
                 .text(text)
                 .place(place)
                 .user(user)

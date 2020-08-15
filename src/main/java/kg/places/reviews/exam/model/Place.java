@@ -3,6 +3,7 @@ package kg.places.reviews.exam.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Data
 @Builder
@@ -19,6 +20,8 @@ public class Place {
     private String title;
 
     private String description;
+
+    private Timestamp date;
 
     @Lob
     @Column(length=100000)
