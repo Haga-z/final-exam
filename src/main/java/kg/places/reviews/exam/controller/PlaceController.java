@@ -1,6 +1,10 @@
 package kg.places.reviews.exam.controller;
 
+import kg.places.reviews.exam.DTO.PlaceDTO;
+import kg.places.reviews.exam.DTO.ReviewDTO;
 import kg.places.reviews.exam.repository.PlaceRepository;
+import kg.places.reviews.exam.repository.ReviewRepository;
+import kg.places.reviews.exam.repository.UserRepository;
 import kg.places.reviews.exam.service.PlaceService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -13,12 +17,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.security.Principal;
+import java.util.stream.Collectors;
 
 @Controller
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class PlaceController {
+    private final UserRepository userRepository;
     private final PlaceService placeService;
     private final PlaceRepository placeRepository;
+    private final ReviewRepository reviewRepository;
 
     @GetMapping("/add_new_place")
     public String addNewPlace(Model model){
@@ -45,5 +52,17 @@ public class PlaceController {
         headers.setContentType(MediaType.IMAGE_JPEG);
         headers.setContentLength(image.length);
         return new HttpEntity<byte[]>(image, headers);
+    }
+    @GetMapping("/single_place/{id}")
+    public String getSinglePlace(@PathVariable("id")Integer id,
+                                 Model model,Principal principal){
+        var place = PlaceDTO.from(placeRepository.findById(id).get());
+        var user = userRepository.findByEmail(principal.getName());
+        var reviews = reviewRepository.findAllByPlaceId(place.getId()).stream().map(ReviewDTO::from).collect(Collectors.toList());
+        model.addAttribute("user", user);
+        model.addAttribute("place",place);
+        model.addAttribute("reviews",reviews);
+
+        return "single_place";
     }
 }
