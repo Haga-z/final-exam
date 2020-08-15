@@ -2,6 +2,7 @@ package kg.places.reviews.exam.controller;
 
 import kg.places.reviews.exam.DTO.PlaceDTO;
 import kg.places.reviews.exam.DTO.ReviewDTO;
+import kg.places.reviews.exam.model.Review;
 import kg.places.reviews.exam.repository.PlaceRepository;
 import kg.places.reviews.exam.repository.ReviewRepository;
 import kg.places.reviews.exam.repository.UserRepository;
@@ -59,9 +60,15 @@ public class PlaceController {
         var place = PlaceDTO.from(placeRepository.findById(id).get());
         var user = userRepository.findByEmail(principal.getName());
         var reviews = reviewRepository.findAllByPlaceId(place.getId()).stream().map(ReviewDTO::from).collect(Collectors.toList());
+        double mark = 0;
+        for (Review r : reviewRepository.findAllByPlaceId(place.getId())){
+            mark += r.getMark();
+        }
+
         model.addAttribute("user", user);
         model.addAttribute("place",place);
         model.addAttribute("reviews",reviews);
+        model.addAttribute("rating",mark/reviews.size());
 
         return "single_place";
     }

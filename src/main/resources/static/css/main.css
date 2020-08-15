@@ -11,3 +11,6 @@ textarea {
     height: auto;
     max-height: 300px;
 }
+.description{
+    font-size: 20px;
+}
