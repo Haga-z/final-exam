@@ -22,6 +22,12 @@
                 </div>
     </#list>
             </div>
+    <div>
+        <#if loadMore>
+            <a id="loadPrev" href="${loadMore!''}">Load More v</a>
+        </#if>
+
+    </div>
 
 
 

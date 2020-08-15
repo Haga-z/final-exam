@@ -1,11 +1,14 @@
 package kg.places.reviews.exam.service;
 
+import kg.places.reviews.exam.DTO.PlaceDTO;
 import kg.places.reviews.exam.exception.FileStorageException;
 import kg.places.reviews.exam.model.Place;
 import kg.places.reviews.exam.repository.PlaceRepository;
 import kg.places.reviews.exam.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.hibernate.type.BinaryType;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,5 +38,9 @@ public class PlaceService {
         } catch (IOException ex) {
             throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
         }
+    }
+    public Page<PlaceDTO> getPlaceSearch(String text, Pageable pageable){
+        return placeRepository.findPlaceByTitle(text, pageable)
+                .map(PlaceDTO::from);
     }
 }

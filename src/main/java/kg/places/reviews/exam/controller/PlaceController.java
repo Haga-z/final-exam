@@ -9,6 +9,7 @@ import kg.places.reviews.exam.repository.UserRepository;
 import kg.places.reviews.exam.service.PlaceService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -71,5 +72,12 @@ public class PlaceController {
         model.addAttribute("rating",mark/reviews.size());
 
         return "single_place";
+    }
+    @GetMapping("/search/{search}")
+    public String search(@PathVariable("search") String search,Principal principal, Model model, Pageable pageable){
+        var places = placeService.getPlaceSearch(search, pageable);
+        model.addAttribute("places",places.getContent());
+        model.addAttribute("user", userRepository.findByEmail(principal.getName()));
+        return "index";
     }
 }
