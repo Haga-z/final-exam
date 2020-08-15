@@ -2,3 +2,12 @@ textarea {
     resize: none;
     height:300px;
 }
+.card {
+    height: 400px;
+    width: 250px;
+}
+.img{
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+}
