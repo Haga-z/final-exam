@@ -1,4 +1,3 @@
-!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -26,14 +25,13 @@
                     <p>${fieldError.field} - ${fieldError.defaultMessage!'-- no message --'}</p>
                 </#list>
             </#if>
+        </form>
     </div>
-    </form>
-</div>
-</div>
-<div class="bottom-box">
-    <a href="/">
-        <button type="button" class="btn btn-outline-primary " id="btn-login">Main Page</button>
-    </a>
+    <div class="bottom-box">
+        <a href="/login">
+            <button type="button" class="btn btn-outline-primary " id="btn-login">Login</button>
+        </a>
+    </div>
 </div>
 </body>
 </html>

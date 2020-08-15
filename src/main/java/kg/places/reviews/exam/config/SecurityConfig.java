@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.formLogin()
-                .loginPage("/login")
+                .loginPage("/login").permitAll()
                 .failureUrl("/login?error=true")
                 .defaultSuccessUrl("/");
 
@@ -37,10 +37,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true);
 
         http.authorizeRequests()
+                .antMatchers("/registration").permitAll()
                 .anyRequest()
-                .permitAll()
+                .authenticated()
                 .and()
                 .csrf().disable();
+
     }
 
     @Override

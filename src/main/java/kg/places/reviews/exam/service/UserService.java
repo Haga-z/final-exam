@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
+
 @Service
 @AllArgsConstructor
 public class UserService {
@@ -31,5 +33,9 @@ public class UserService {
         userRepository.save(user);
 
         return UserResponseDTO.from(user);
+    }
+
+    public User findLoggedInUser(Principal principal) {
+        return userRepository.findByEmail(principal.getName());
     }
 }

@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -32,8 +31,8 @@
         </div>
     </div>
     <div class="bottom-box">
-        <a href="/">
-            <button type="button" class="btn btn-outline-primary " id="btn-login">Main Page</button>
+        <a href="/registration">
+            <button type="button" class="btn btn-outline-primary " id="btn-login">Registration</button>
         </a>
     </div>
 </div>
