@@ -12,7 +12,7 @@
 <div class="container">
     <div class="d-flex justify-content-center">
         <div class="mx-3">
-            <form action="/main/login" method="post">
+            <form action="/login" method="post">
                 <h3 class="text-center">Login</h3>
                 <div>
                     <#if error!false >
@@ -32,8 +32,8 @@
         </div>
     </div>
     <div class="bottom-box">
-        <a href="/main">
-            <button type="button" class="btn btn-warning " id="btn-login">Main Page</button>
+        <a href="/">
+            <button type="button" class="btn btn-outline-primary " id="btn-login">Main Page</button>
         </a>
     </div>
 </div>

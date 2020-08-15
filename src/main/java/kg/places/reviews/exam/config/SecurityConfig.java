@@ -46,11 +46,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         String fetchUsersQuery = "select email, password, enabled"
-                + " from customers"
+                + " from users"
                 + " where email = ?";
 
         String fetchRolesQuery = "select email, role"
-                + " from customers"
+                + " from users"
                 + " where email = ?";
 
         auth.jdbcAuthentication()

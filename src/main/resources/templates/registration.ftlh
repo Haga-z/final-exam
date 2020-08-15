@@ -11,7 +11,7 @@
 <body>
 <div class="container">
     <div class="d-flex justify-content-center">
-        <form action="/main/registration" method="post">
+        <form action="/registration" method="post">
             <#if _csrf??>
                 <input type="hidden" name="${(_csrf.parameterName)!'csrf'}" value="${(_csrf.token)!'--no-token--'}"/>
             </#if>
@@ -31,8 +31,8 @@
 </div>
 </div>
 <div class="bottom-box">
-    <a href="/main">
-        <button type="button" class="btn btn-warning " id="btn-login">Main Page</button>
+    <a href="/">
+        <button type="button" class="btn btn-outline-primary " id="btn-login">Main Page</button>
     </a>
 </div>
 </body>
