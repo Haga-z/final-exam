@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,5 +55,11 @@ public class MainController {
         model.addAttribute("hasPrev", list.hasPrevious());
         model.addAttribute("items", list.getContent());
         model.addAttribute("defaultPageSize", pageSize);
+    }
+    @GetMapping("/error")
+    public String error(Model model, Principal principal){
+        var user = userRepository.findByEmail(principal.getName());
+        model.addAttribute("user", user);
+        return "error";
     }
 }

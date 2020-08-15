@@ -27,6 +27,12 @@ public class ReviewController {
                             Principal principal){
         var place = placeRepository.findById(place_id).get();
         var user = userRepository.findByEmail(principal.getName());
+        var reviews = reviewRepository.findAllByPlaceId(place_id);
+        for(Review r : reviews){
+            if(r.getUser().equals(user)){
+                return "redirect:/error";
+            }
+        }
         var review = Review.builder()
                 .date(new Timestamp(System.currentTimeMillis()))
                 .mark(rating)
