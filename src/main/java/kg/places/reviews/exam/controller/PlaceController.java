@@ -3,6 +3,7 @@ package kg.places.reviews.exam.controller;
 import kg.places.reviews.exam.DTO.PlaceDTO;
 import kg.places.reviews.exam.DTO.ReviewDTO;
 import kg.places.reviews.exam.model.Review;
+import kg.places.reviews.exam.repository.PhotoRepository;
 import kg.places.reviews.exam.repository.PlaceRepository;
 import kg.places.reviews.exam.repository.ReviewRepository;
 import kg.places.reviews.exam.repository.UserRepository;
@@ -33,6 +34,7 @@ public class PlaceController {
     private final PlaceRepository placeRepository;
     private final ReviewRepository reviewRepository;
     private final PropertiesService propertiesService;
+    private final PhotoRepository photoRepository;
 
     @GetMapping("/add_new_place")
     public String addNewPlace(Model model){
@@ -70,7 +72,7 @@ public class PlaceController {
         for (Review r : reviewRepository.findAllByPlaceId(place.getId())){
             mark += r.getMark();
         }
-
+        model.addAttribute("photos",photoRepository.findAllByPlaceId(id));
         model.addAttribute("user", user);
         model.addAttribute("place",place);
         model.addAttribute("reviews",reviews);
