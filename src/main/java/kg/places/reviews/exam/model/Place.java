@@ -20,7 +20,9 @@ public class Place {
 
     private String description;
 
-    private String main_photo;
+    @Lob
+    @Column(length=100000)
+    private byte[] main_photo;
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)

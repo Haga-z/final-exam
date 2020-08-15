@@ -1,4 +1,4 @@
-<#macro renderWith title="crm" scripts=[""] styles=["/main.css"]>
+<#macro renderWith title="crm" scripts=[""] styles=["/css/main.css"]>
     <!DOCTYPE html>
     <html lang="en">
     <head>

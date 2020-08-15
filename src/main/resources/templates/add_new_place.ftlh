@@ -2,7 +2,7 @@
 
 <@main.renderWith>
 <h1 class="mb-5">Add new Place</h1>
-    <form action="/add_new_place" method="post">
+    <form action="/add_new_place" method="post" enctype="multipart/form-data">
         <div class="row mb-5">
             <div class="col">
                 <h4 class="label-input-text">Enter the title</h4>
