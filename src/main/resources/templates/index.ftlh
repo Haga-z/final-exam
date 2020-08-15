@@ -22,6 +22,7 @@
                 </div>
     </#list>
             </div>
+
     <div>
         <#if hasPrev>
             <a id="loadPrev" class="text-danger" href="${prevPageLink!''}">&lt;&lt;&lt;Previous page</a>

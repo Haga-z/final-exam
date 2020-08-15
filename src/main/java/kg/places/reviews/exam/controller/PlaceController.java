@@ -7,8 +7,10 @@ import kg.places.reviews.exam.repository.PlaceRepository;
 import kg.places.reviews.exam.repository.ReviewRepository;
 import kg.places.reviews.exam.repository.UserRepository;
 import kg.places.reviews.exam.service.PlaceService;
+import kg.places.reviews.exam.service.PropertiesService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -17,6 +19,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.security.Principal;
 import java.util.stream.Collectors;
@@ -28,6 +32,7 @@ public class PlaceController {
     private final PlaceService placeService;
     private final PlaceRepository placeRepository;
     private final ReviewRepository reviewRepository;
+    private final PropertiesService propertiesService;
 
     @GetMapping("/add_new_place")
     public String addNewPlace(Model model){
@@ -74,10 +79,28 @@ public class PlaceController {
         return "single_place";
     }
     @GetMapping("/search/{search}")
-    public String search(@PathVariable("search") String search,Principal principal, Model model, Pageable pageable){
+    public String search(@PathVariable("search") String search, Principal principal, Model model, Pageable pageable, HttpServletRequest uriBuilder){
         var places = placeService.getPlaceSearch(search, pageable);
-        model.addAttribute("places",places.getContent());
+        var uri = uriBuilder.getRequestURI();
+        constructPageable(places,propertiesService.getDefaultPageSize(),model,uri);
         model.addAttribute("user", userRepository.findByEmail(principal.getName()));
         return "index";
+    }
+    private static String constructPageUri(String uri, int page, int size) {
+        return String.format("%s?page=%s&size=%s", uri, page, size);
+    }
+    private static <T> void constructPageable(Page<T> list, int pageSize, Model model, String uri) {
+        if (list.hasNext()) {
+            model.addAttribute("nextPageLink", constructPageUri(uri, list.nextPageable().getPageNumber(), list.nextPageable().getPageSize()));
+        }
+
+        if (list.hasPrevious()) {
+            model.addAttribute("prevPageLink", constructPageUri(uri, list.previousPageable().getPageNumber(), list.previousPageable().getPageSize()));
+        }
+
+        model.addAttribute("hasNext", list.hasNext());
+        model.addAttribute("hasPrev", list.hasPrevious());
+        model.addAttribute("items", list.getContent());
+        model.addAttribute("defaultPageSize", pageSize);
     }
 }
