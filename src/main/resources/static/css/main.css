@@ -3,7 +3,7 @@ textarea {
     height:300px;
 }
 .card {
-    height: 400px;
+    height: 500px;
     width: 250px;
 }
 .img{
@@ -13,4 +13,8 @@ textarea {
 }
 .description{
     font-size: 20px;
+}
+.img-single{
+    width: 50%;
+    height: auto;
 }

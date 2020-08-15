@@ -6,7 +6,7 @@
             <div class="row">
     <#list places as place>
                 <div class="col-sm-12 col-md-6 col-lg-3">
-                    <div class="card">
+                    <div class="card mt-4">
                         <div class="img-container">
                             <a href="/single_place/${place.id}"><img src="/image/${place.title}" class="card-img-top"></a>
                         </div>

@@ -25,7 +25,6 @@
                 <input type="text" name="username" class="form-control mb-1" placeholder="Login"
                        value="${(dto.email)!''}">
                 <input type="password" name="password" class="form-control mb-1" placeholder="Password" value="">
-                <a href="/main/forgot-password">Forgot password?</a>
                 <button type="submit" class="btn btn-outline-primary btn-block">Sign In</button>
             </form>
         </div>
